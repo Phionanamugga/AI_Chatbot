@@ -1,0 +1,2 @@
+web: python chatbot/api.py
+web: python main.py
