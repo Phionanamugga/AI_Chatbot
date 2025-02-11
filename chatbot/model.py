@@ -1,5 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+import random
+import json
 from chatbot.config import MODEL_NAME, DEVICE
 
 class ChatbotModel:
@@ -18,11 +20,25 @@ class ChatbotModel:
             "What is the meaning of life?": "The meaning of life is a philosophical question that has been debated for centuries. Different people and cultures have different interpretations and beliefs about the meaning of life.",
             "Goodbye!": "Goodbye! Have a great day!"
         }
+        with open("chatbot/intents.json", "r") as file:
+            self.intents = json.load(file)
 
     def generate_response(self, user_input):
+        # Check predefined responses
         if user_input in self.responses:
             return self.responses[user_input]
-        else:
-            input_ids = self.tokenizer.encode(user_input, return_tensors="pt").to(DEVICE)
-            output = self.model.generate(input_ids, max_length=100, pad_token_id=self.tokenizer.eos_token_id)
-            return self.tokenizer.decode(output[:, input_ids.shape[-1]:][0], skip_special_tokens=True)
+        
+        # Check intent-based responses
+        for intent in self.intents["intents"]:
+            if user_input.lower() in intent["patterns"]:
+                return random.choice(intent["responses"])
+        
+        # Use transformer model for other responses
+        input_ids = self.tokenizer.encode(user_input, return_tensors="pt").to(DEVICE)
+        output = self.model.generate(input_ids, max_length=100, pad_token_id=self.tokenizer.eos_token_id)
+        return self.tokenizer.decode(output[:, input_ids.shape[-1]:][0], skip_special_tokens=True)
+
+# Example usage (for debugging)
+if __name__ == "__main__":
+    bot = ChatbotModel()
+    print(bot.generate_response("hello"))
