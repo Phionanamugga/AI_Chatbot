@@ -11,11 +11,11 @@ app.use(express.json());
 app.use(cors());
 
 // OpenAI Configuration
-const openai = new OpenAIApi(
-  new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  })
-);
+const OpenAI = require("openai"); // ✅ Correct import for OpenAI v4
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Ensure you have a .env file with the API key
+});
 
 // Chatbot API Endpoint
 app.post("/chat", async (req, res) => {
@@ -96,7 +96,9 @@ app.post("/search", async (req, res) => {
 });
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
