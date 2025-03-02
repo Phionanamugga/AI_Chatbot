@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from flask import Flask, request, jsonify
 from chatbot.model import ChatbotModel  # Import chatbot model
 
