@@ -2,6 +2,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import random
 import json
+import os
 from chatbot.config import MODEL_NAME, DEVICE
 
 class ChatbotModel:
@@ -20,7 +21,8 @@ class ChatbotModel:
             "What is the meaning of life?": "The meaning of life is a philosophical question that has been debated for centuries. Different people and cultures have different interpretations and beliefs about the meaning of life.",
             "Goodbye!": "Goodbye! Have a great day!"
         }
-        with open("chatbot/intents.json", "r") as file:
+        intents_path = os.path.join(os.path.dirname(__file__), "intents.json")
+        with open(intents_path, "r") as file:
             self.intents = json.load(file)
 
     def generate_response(self, user_input):
