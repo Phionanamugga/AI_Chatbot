@@ -1,24 +1,29 @@
-# 🧠 AI Chatbot
-
-## 📌 Overview
-
-This is a Flask-based chatbot application that integrates Machine Learning (ML) and Natural Language Processing (NLP) to provide human-like responses. The project consists of:
-✅ Backend: Flask API that processes user messages using an ML chatbot.
-✅ Frontend: A user-friendly web interface built with Flask's Jinja templates.
+# 🧠 Multi-Utility AI Chatbot 
+A production-ready AI-powered chatbot designed for **multi-utility companies** providing **electricity**, **water**, and **ferry services**. Built using **FastAPI**, **Langchain**, **OpenAI GPT-4**, **PostgreSQL**, and deployed on **Google Cloud Platform (GCP)**, this project showcases cutting-edge AI engineering tailored to smart infrastructure and public service operations.
 
 ## 🚀 Goal: To build a smart, responsive chatbot that can be extended with AI and deployed on the web.
 
 ## 🔧 Features
-✅ Real-time communication – The chatbot responds instantly.
-✅ Rule-based & AI-ready – Uses predefined intents but can be upgraded with AI models.
-✅ REST API – Backend serves chatbot responses via a RESTful API.
-✅ Scalable – Easily expandable with more intents and deep learning models.
+- 💬 Natural Language Chat (GPT-powered)
+- 🧾 Billing & Account Inquiries (Electricity, Water, Ferry)
+- ⚡ Report Power Outages & Get Status Updates
+- 💧 Water Supply Disruption Alerts & Ticketing
+- ⛴️ Ferry Schedules, Ticket Bookings, and Disruptions
+- 📑 FAQ Retrieval from Policy Documents
+- 📊 Usage Analytics Dashboard (Simulated or Real)
+- 🗣️ Voice Input (via Whisper API)
+- 🌍 Multilingual Support (i18next integration ready)
+- 🧠 Intent Classification Model (Fallback & Custom Actions)
 
 ## 🏗️ Tech Stack
-Backend: Python, Flask, REST API
-Frontend: HTML, CSS, JavaScript (Jinja templates)
-Machine Learning: NLP with JSON-based intents (AI-ready)
-Database: JSON-based intents (can be switched to a real DB)
+| Layer            | Tools                                           |
+|------------------|--------------------------------------------------|
+| **Frontend**     | React.js, Tailwind CSS, TypeScript (planned)     |
+| **Backend**      | FastAPI, Python 3.10+                            |
+| **AI/NLP**       | Langchain, OpenAI GPT-4, Whisper, SpaCy, FAISS   |
+| **Database**     | PostgreSQL, Redis                                |
+| **Vector Store** | Pinecone (optional), FAISS                      |
+| **DevOps**       | Docker, GitHub Actions, GCP Cloud Run           |
 
 ## 🚀 Getting Started
 📥 1. Clone the Repository
@@ -34,26 +39,41 @@ venv/Scripts/activate  # Windows
 ## Install required libraries:
 pip install -r requirements.txt
 
+## Create `.env` File
+```env
+OPENAI_API_KEY=your_openai_key
+DATABASE_URL=postgresql://user:pass@localhost/dbname
+REDIS_URL=redis://localhost:6379
+```
+
+## Build and Run with Docker Compose
+```bash
+docker-compose up --build
+```
+
+## Run Tests
+```bash
+pytest tests/
+
 ## ⚙️ Project Structure
-chatbot-app/
-│── chatbot/                    # Chatbot logic and intents
-│   ├── model.py                 # Chatbot logic (NLP processing)
-│   ├── intents.json              # Chatbot responses & patterns
-│
-│── backend/                     # Flask API backend
-│   ├── api.py                    # Main API handling chat requests
-│
-│── frontend/                    # Flask-based UI
-│   ├── app.py                     # Runs the Flask frontend
-│   ├── templates/                 # HTML templates
-│   │   ├── index.html               # Chatbot UI
-│   ├── static/                     # Static assets (CSS & JS)
-│   │   ├── style.css                # UI styling
-│   │   ├── script.js                # Handles chat interactions
-│
-│── requirements.txt              # Required dependencies
-│── README.md                     # Project documentation
-│── .gitignore                     # Files to ignore in version control
+```bash
+multi_utility_chatbot/
+├── app/
+│   ├── api/              # FastAPI route handlers
+│   ├── core/             # App config, logging
+│   ├── models/           # SQLAlchemy ORM models
+│   ├── schemas/          # Pydantic schemas
+│   ├── services/         # Chatbot logic and Langchain interface
+│   └── db/               # DB session and CRUD utils
+├── vectorstore/          # FAISS or Pinecone document embedding
+├── scripts/              # Intent model training script
+├── tests/                # Unit tests
+├── Dockerfile            # Docker config
+├── docker-compose.yml    # Local dev stack
+├── .env                  # Environment variables
+├── requirements.txt      # Dependencies
+└── README.md             # Project documentation
+```
 🚀 Running the App
 
 ## 1️⃣ Start the Backend
@@ -88,6 +108,18 @@ git push heroku main
 Open the deployed app:
 heroku open
 
+## 📦 API Endpoints
+Visit FastAPI docs at `/docs` for interactive Swagger UI.
+
+- `POST /chat`: Send a user message and get a bot response
+- `GET /health`: Health check
+- `POST /report-issue`: Utility outage or ticket submissions
+
+
+## 🧪 Demo & Examples
+> Coming soon: Screenshots, hosted chatbot URL, and walkthrough video.
+
+
 ## 🎯 Future Enhancements
 🚀 AI-Powered Chatbot – Integrate with GPT or Rasa for smarter responses.
 📊 User Data Storage – Store chat history in a database (MongoDB/PostgreSQL).
@@ -107,9 +139,12 @@ API not responding	Check if the backend is running on port 5000
 UI not loading	Ensure the frontend Flask app is running
 JSON decode error	Check intents.json syntax
 
-## 💡 Acknowledgments
-💙 Built with Flask, Python, and Machine Learning.
-🌟 Inspired by chatbot models like GPT, Rasa, and Dialogflow.
+## 📚 Credits & Acknowledgements
+- [OpenAI](https://openai.com)
+- [Langchain](https://github.com/langchain-ai/langchain)
+- [FastAPI](https://fastapi.tiangolo.com)
+- [Google Cloud Platform](https://cloud.google.com)
+
 
 ## 📜 License
 MIT License
